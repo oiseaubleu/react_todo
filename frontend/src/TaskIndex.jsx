@@ -6,7 +6,7 @@ import NewTaskForm from './NewTaskForm'
 /**
  * task一覧のコンポーネント
  */
-export default function App() {
+export default function TaskIndex() {
   const [tasks, setTasks] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // ここで検索ボックスの入力値を管理
   const [isLoading, setIsLoading] = useState(true);

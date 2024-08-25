@@ -1,0 +1,2 @@
+delete http://localhost:3000/api/v1/tasks/1
+content-type: application/json

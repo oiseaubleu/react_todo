@@ -1,10 +1,19 @@
 import { useState } from 'react'
 
-
 /**
- * 既存のタスクを編集するためのコンポーネント
- * @param {*} param0 
- * @returns 
+ * 既存のタスクを表示・編集するためのコンポーネント
+ * 編集モードと表示モードを切り替えながら、タスクの編集や削除を行う
+ * @param {Object} props - コンポーネントに渡される props オブジェクト。
+ * @param {Object} props.task - 表示するタスクオブジェクト。
+      { "id": 1,
+        "title": "title_01",
+        "description": "description_01-A",
+        "created_at": "2024-08-26T02:22:06.413Z",
+        "updated_at": "2024-08-26T02:30:18.184Z"
+      } 
+ * @param {Function} props.onSave - タスクを更新するための関数。`onSave(id, updatedTask)` の形式。
+ * @param {Function} props.onDelete - タスクを削除するための関数。`onDelete(id)` の形式。
+ * @returns {JSX.Element} タスク行の表示および編集UI。
  */
 
 export default function TaskRow({ task, onSave, onDelete }) {
@@ -23,8 +32,6 @@ export default function TaskRow({ task, onSave, onDelete }) {
         {isEditing ? (
           <input
             type="text"
-            // name="taskTitle"
-            // id="taskTitle"
             value={editTaskTitle}
             onChange={(e) => setEditTaskTitle(e.target.value)}
             className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -39,8 +46,6 @@ export default function TaskRow({ task, onSave, onDelete }) {
         {isEditing ? (
           <input
             type="text"
-            // name="taskdescription"
-            // id="taskdescription"
             value={editTaskDescription}
             onChange={(e) => setEditTaskDescription(e.target.value)}
             className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

@@ -7,51 +7,55 @@ import NewTaskForm from './NewTaskForm'
  * task一覧のコンポーネント
  */
 export default function TaskIndex() {
-  //[現在の状態, 状態を更新する関数] = useState(初期値)
   const [tasks, setTasks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // ここで検索ボックスの入力値を管理
   const [isLoading, setIsLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
 
+  ///ページが読み込まれたときにまるっとTODOをもってくる///
+  // useEffect(() => {
+  //   async function getAllTasks(searchTitle = "") {
+  //     const res = await fetch(`http://localhost:3000/api/v1/tasks?title=${searchTitle}`, {
+  //       mode: "cors",
+  //     });
+  //     const data = await res.json();
+  //     console.log(data);
+  //     setTasks(data.data);
+  //     setIsLoading(false);
+  //   }
+  //   getAllTasks();
+  // }, []);
 
-  /**
-   * 【useEffectについて】https://ja.react.dev/learn/synchronizing-with-effects
-   * コンポーネントが最初に表示されるときに useEffect が実行される
-   * getAllTasks 関数が呼ばれ、API にリクエストを送信してタスクのデータを取得
-   * ここでもらうdataオブジェクトはこんな形
-  {
-    "status": "success",
-    "data": [
-      {
-        "id": 1,
-        "title": "title_01",
-        "description": "description_01-A",
-        "created_at": "2024-08-26T02:22:06.413Z",
-        "updated_at": "2024-08-26T02:30:18.184Z"
-      },...
-    ]
+  async function getAllTasks(searchTitle = "") {
+    const res = await fetch(`http://localhost:3000/api/v1/tasks?title=${searchTitle}`, {
+      mode: "cors",
+    });
+    const data = await res.json();
+    console.log(data);
+    setTasks(data.data);
+    setIsLoading(false);
   }
-   * 取得したデータをコンポーネントの tasks にセット
-   * データのロードが完了したら、ローディング状態を解除して、UIを更新
-   */
 
-  ///ページが読み込まれたときにまるっとTaskをもってくる///
+
+
+
   useEffect(() => {
-    async function getAllTasks() {
-      const res = await fetch(`http://localhost:3000/api/v1/tasks`, {
-        mode: "cors",//methodはGETなので記載不要
-      });
-      const data = await res.json();
-      console.log(data);
-      setTasks(data.data);
-      setIsLoading(false);
-    }
     getAllTasks();
   }, []);
 
 
 
-  ///検索ボタンがクリックされたときに実行する関数///
+
+
+
+
+
+
+
+
+
+
+  // 検索ボタンがクリックされたときに実行する関数
   const handleSearch = () => {
     getAllTasks(searchTerm);
   };
@@ -149,6 +153,8 @@ export default function TaskIndex() {
       <div>
         <div className="flex items-center space-x-4 mb-4">
           <input
+            // name="taskSearchTitle"
+            // id="taskSearchTitle"
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // 入力値を更新
@@ -185,7 +191,7 @@ export default function TaskIndex() {
                   onCancel={handleCancelNewTask}//キャンセルボタンが押されると動く関数を渡してる
                 />
               )}
-              {tasks.map((task) => (//1行分ずつtaskの中身を渡している
+              {tasks.map((task) => (
                 <TaskRow
                   key={task.id}
                   task={task}

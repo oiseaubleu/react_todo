@@ -15,8 +15,6 @@ export default function NewTaskForm({ onSave, onCancel }) {
       <td>
         <input
           type="text"
-          // name="taskTitle"
-          // id="taskTitle"
           placeholder="タスクタイトル"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
@@ -26,8 +24,6 @@ export default function NewTaskForm({ onSave, onCancel }) {
       <td className="flex justify-center">
         <input
           type="text"
-          // name="taskdescription"
-          // id="taskdescription"
           placeholder="タスク内容"
           value={newTaskDescription}
           onChange={(e) => setNewTaskDescription(e.target.value)}

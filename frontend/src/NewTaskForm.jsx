@@ -1,14 +1,19 @@
 import { useState } from 'react'
 /**
  * 新規タスクを登録するためのコンポーネント
+ * @param {Object} props - コンポーネントに渡される props オブジェクト。
+ * @param {Function} props.onSave - 新しいタスクを保存するための関数。`onSave(newTask)` の形式で呼ばれます。
+ * @param {Function} props.onCancel - タスクの登録をキャンセルするための関数。
+ * @returns {JSX.Element} 新規タスクの入力および保存UI。
+ * 
  */
 export default function NewTaskForm({ onSave, onCancel }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
 
-  const handleSave = () => {
-    onSave({ title: newTaskTitle, description: newTaskDescription });
-  };
+  // const handleSave = () => {
+  //   onSave({ title: newTaskTitle, description: newTaskDescription });
+  // };
 
   return (
     <tr>
@@ -32,7 +37,7 @@ export default function NewTaskForm({ onSave, onCancel }) {
       </td>
       <td>
         <button
-          onClick={handleSave}
+          onClick={() => onSave({ title: newTaskTitle, description: newTaskDescription })}
           className="ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
         >
           登録

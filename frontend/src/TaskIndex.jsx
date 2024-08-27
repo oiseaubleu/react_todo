@@ -181,7 +181,7 @@ export default function TaskIndex() {
             <tbody>
               {isAdding && ( //新規追加ボタンが押されたときに表示される
                 <NewTaskForm
-                  onSave={handleSaveNewTask} //登録ボタンが押されると動く関数を渡してる　★★なんでここで渡してるんだっけ？setTasks使いたいから？
+                  onSave={handleSaveNewTask} //登録ボタンが押されると動く関数を渡してる　
                   onCancel={handleCancelNewTask}//キャンセルボタンが押されると動く関数を渡してる
                 />
               )}

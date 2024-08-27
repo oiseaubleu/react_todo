@@ -3,8 +3,8 @@ import { useState } from 'react'
 /**
  * 既存のタスクを表示・編集するためのコンポーネント
  * 編集モードと表示モードを切り替えながら、タスクの編集や削除を行う
- * @param {Object} props - コンポーネントに渡される props オブジェクト。
- * @param {Object} props.task - 表示するタスクオブジェクト。
+ * @param {Object} props - コンポーネントに渡される props オブジェクト（
+ * @param {Object} props.task - 表示するタスクオブジェクト
       { "id": 1,
         "title": "title_01",
         "description": "description_01-A",
@@ -15,15 +15,18 @@ import { useState } from 'react'
  * @param {Function} props.onDelete - タスクを削除するための関数。`onDelete(id)` の形式。
  * @returns {JSX.Element} タスク行の表示および編集UI。
  */
-
 export default function TaskRow({ task, onSave, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTaskTitle, setEditTaskTitle] = useState(task.title);
   const [editTaskDescription, setEditTaskDescription] = useState(task.description);
 
+  /**
+   * 編集したタスクのデータを保存する
+   * 保存ボタンが押されたときに `onSave` 関数を呼び出し、編集モードを終了する
+   */
   const handleSave = () => {
-    onSave(task.id, { title: editTaskTitle, description: editTaskDescription });
-    setIsEditing(false);
+    onSave(task.id, { title: editTaskTitle, description: editTaskDescription });//ここで関数を実行している
+    setIsEditing(false);//編集状態を解除する
   };
 
   return (
@@ -60,7 +63,7 @@ export default function TaskRow({ task, onSave, onDelete }) {
         {isEditing ? (
           <>
             <button
-              onClick={handleSave}
+              onClick={handleSave}//保存ボタンが押されるとhandleSaveが呼ばれる(ここでは関数の実行はしていない)
               className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
             >
               保存
@@ -81,7 +84,7 @@ export default function TaskRow({ task, onSave, onDelete }) {
               編集
             </button>
             <button
-              onClick={() => onDelete(task.id)}
+              onClick={() => onDelete(task.id)}//削除ボタンが押されるとonDeleteが呼ばれる(ここで関数を実行している)
               className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
             >
               削除

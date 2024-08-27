@@ -11,9 +11,6 @@ export default function NewTaskForm({ onSave, onCancel }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
 
-  // const handleSave = () => {
-  //   onSave({ title: newTaskTitle, description: newTaskDescription });
-  // };
 
   return (
     <tr>

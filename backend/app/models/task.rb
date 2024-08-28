@@ -3,5 +3,7 @@ class Task < ApplicationRecord
   validates :description, presence: true
 
   # タイトルでのあいまい検索
-  scope :task_search, ->(title) { where('title like ?', "%#{title}%") if title.present? }
+  scope :search, lambda { |title|
+    title.present? ? where('title like ?', "%#{title}%") : nil
+  }
 end

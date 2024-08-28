@@ -1,13 +1,8 @@
-class Api::V1::TasksController < ActionController::API # これじゃなくても？
+class Api::V1::TasksController < ActionController::API
   before_action :set_task, only: %i[show update destroy]
-  # skip_before_action :verify_authenticity_token # #後で消す
   # GET api/vi/tasks/
   def index
-    @tasks = if params[:title]
-               Task.task_search(params[:title])
-             else
-               Task.all
-             end
+    @tasks = Task.search(params[:title])
     render json: { status: 'success', data: @tasks }
   end
 

@@ -35,19 +35,33 @@ export default function TaskIndex() {
    * データのロードが完了したら、ローディング状態を解除して、UIを更新
    */
 
+
+  async function getAllTasks(searchTitle = "") {
+    const res = await fetch(`http://localhost:3000/api/v1/tasks?title=${searchTitle}`, {
+      mode: "cors",
+    });
+    const data = await res.json();
+    console.log(data);
+    setTasks(data.data);
+    setIsLoading(false);
+  }
   ///ページが読み込まれたときにまるっとTaskをもってくる///
   useEffect(() => {
-    async function getAllTasks() {
-      const res = await fetch(`http://localhost:3000/api/v1/tasks`, {
-        mode: "cors",//methodはGETなので記載不要
-      });
-      const data = await res.json();
-      console.log(data);
-      setTasks(data.data);
-      setIsLoading(false);
-    }
     getAllTasks();
   }, []);
+
+  // useEffect(() => {
+  //   async function getAllTasks() {
+  //     const res = await fetch(`http://localhost:3000/api/v1/tasks`, {
+  //       mode: "cors",//methodはGETなので記載不要
+  //     });
+  //     const data = await res.json();
+  //     console.log(data);
+  //     setTasks(data.data);
+  //     setIsLoading(false);
+  //   }
+  //   getAllTasks();
+  // }, []);
 
 
 
@@ -180,8 +194,8 @@ export default function TaskIndex() {
             <tbody>
               {isAdding && ( //新規追加ボタンが押されたときに表示される
                 <NewTaskForm
-                  onSave={handleSaveNewTask} //登録ボタンが押されると動く関数を渡してる　
-                  onCancel={handleCancelNewTask}//キャンセルボタンが押されると動く関数を渡してる
+                  saveHandler={handleSaveNewTask} //登録ボタンが押されると動く関数を渡してる　
+                  cancelHandler={handleCancelNewTask}//キャンセルボタンが押されると動く関数を渡してる
                 />
               )}
               {tasks.map((task) => (//1行分ずつtaskの中身を渡している
@@ -189,7 +203,7 @@ export default function TaskIndex() {
                   key={task.id}
                   task={task}
                   onSave={handleSaveUpdateTask}
-                  onDelete={handleDelete}
+                  deleteHandler={handleDelete}
                 />
               ))}
 

@@ -12,10 +12,10 @@ import { useState } from 'react'
         "updated_at": "2024-08-26T02:30:18.184Z"
       } 
  * @param {Function} props.onSave - タスクを更新するための関数。`onSave(id, updatedTask)` の形式。
- * @param {Function} props.onDelete - タスクを削除するための関数。`onDelete(id)` の形式。
+ * @param {Function} props.deleteHandler - タスクを削除するための関数。`deleteHandler(id)` の形式。
  * @returns {JSX.Element} タスク行の表示および編集UI。
  */
-export default function TaskRow({ task, onSave, onDelete }) {
+export default function TaskRow({ task, onSave, deleteHandler }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTaskTitle, setEditTaskTitle] = useState(task.title);
   const [editTaskDescription, setEditTaskDescription] = useState(task.description);
@@ -24,7 +24,7 @@ export default function TaskRow({ task, onSave, onDelete }) {
    * 編集したタスクのデータを保存する
    * 保存ボタンが押されたときに `onSave` 関数を呼び出し、編集モードを終了する
    */
-  const handleSave = () => {
+  const saveHandler = () => {
     onSave(task.id, { title: editTaskTitle, description: editTaskDescription });//ここで関数を実行している
     setIsEditing(false);//編集状態を解除する
   };
@@ -63,7 +63,7 @@ export default function TaskRow({ task, onSave, onDelete }) {
         {isEditing ? (
           <>
             <button
-              onClick={handleSave}//保存ボタンが押されるとhandleSaveが呼ばれる(ここでは関数の実行はしていない)
+              onClick={saveHandler}//保存ボタンが押されるとsaveHandlerが呼ばれる(ここでは関数の実行はしていない)
               className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
             >
               保存
@@ -84,7 +84,7 @@ export default function TaskRow({ task, onSave, onDelete }) {
               編集
             </button>
             <button
-              onClick={() => onDelete(task.id)}//削除ボタンが押されるとonDeleteが呼ばれる(ここで関数を実行している)
+              onClick={() => deleteHandler(task.id)}//削除ボタンが押されるとdeleteHandlerが呼ばれる(ここで関数を実行している)
               className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
             >
               削除

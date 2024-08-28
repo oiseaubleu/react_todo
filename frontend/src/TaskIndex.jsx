@@ -84,7 +84,6 @@ export default function TaskIndex() {
     registerData();
   };
 
-
   ///キャンセルボタンが押されたときの処理///
   const handleCancelNewTask = () => {
     setIsAdding(false);

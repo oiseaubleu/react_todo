@@ -40,9 +40,9 @@ export default function TaskIndex() {
     const res = await fetch(`http://localhost:3000/api/v1/tasks?title=${searchTitle}`, {
       mode: "cors",
     });
-    const data = await res.json();
+    const { data: task } = await res.json();
     console.log(data);
-    setTasks(data.data);
+    setTasks(task);
     setIsLoading(false);
   }
   ///ページが読み込まれたときにまるっとTaskをもってくる///
@@ -89,9 +89,9 @@ export default function TaskIndex() {
         },
         body: JSON.stringify(newTask),
       });
-      const data = await res.json();
+      const { data: task } = await res.json();
       console.log(data);
-      setTasks([...tasks, data.data]);
+      setTasks([...tasks, task]);
       console.log(tasks);
       setIsAdding(false);//追加されたら新規追加行を非表示にする
     }
@@ -148,8 +148,6 @@ export default function TaskIndex() {
     }
     deleteData();
   };
-
-
 
 
 
